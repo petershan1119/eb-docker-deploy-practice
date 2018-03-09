@@ -65,7 +65,7 @@ def set_config(obj, start=False):
             # 없는 변수를 참조할 때 발생하는 예외
             return obj
         except Exception as e:
-            print(f'Cannot eval object({obj}), Exception: {e}')
+            # print(f'Cannot eval object({obj}), Exception: {e}')
             return obj
             # raise ValueError(f'Cannot eval object({obj}), Exception: {e}')
 
@@ -96,9 +96,6 @@ def set_config(obj, start=False):
 # raven모듈을 importlib를 사용해 가져온 후 현재 모듈에 'raven'이라는 이름으로 할당
 setattr(sys.modules[__name__], 'raven', importlib.import_module('raven'))
 set_config(secrets, start=True)
-
-print(f'SECRET_KEY: {getattr(sys.modules[__name__], "SECRET_KEY")}')
-print(f'RAVEN_CONFIG: {getattr(sys.modules[__name__], "RAVEN_CONFIG")}')
 
 # Static
 STATIC_URL = '/static/'
@@ -168,3 +165,47 @@ TIME_ZONE = 'Asia/Seoul'
 USE_I18N = True
 USE_L10N = True
 USE_TZ = True
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': True,
+    'root': {
+        'level': 'WARNING',
+        'handlers': ['sentry'],
+    },
+    'formatters': {
+        'verbose': {
+            'format': '%(levelname)s %(asctime)s %(module)s '
+                      '%(process)d %(thread)d %(message)s'
+        },
+    },
+    'handlers': {
+        'sentry': {
+            'level': 'ERROR',  # To capture more than ERROR, change to WARNING, INFO, etc.
+            'class': 'raven.contrib.django.raven_compat.handlers.SentryHandler',
+            'tags': {'custom-tag': 'x'},
+        },
+        'console': {
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler',
+            'formatter': 'verbose'
+        }
+    },
+    'loggers': {
+        'django.db.backends': {
+            'level': 'ERROR',
+            'handlers': ['console'],
+            'propagate': False,
+        },
+        'raven': {
+            'level': 'DEBUG',
+            'handlers': ['console'],
+            'propagate': False,
+        },
+        'sentry.errors': {
+            'level': 'DEBUG',
+            'handlers': ['console'],
+            'propagate': False,
+        },
+    },
+}
