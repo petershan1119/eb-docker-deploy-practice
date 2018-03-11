@@ -100,6 +100,9 @@ set_config(secrets, start=True)
 # Static
 STATIC_URL = '/static/'
 
+# Auth
+AUTH_USER_MODEL = 'members.User'
+
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -107,6 +110,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    'members',
 
     # Sentry
     'raven.contrib.django.raven_compat',
