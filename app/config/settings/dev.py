@@ -15,12 +15,17 @@ from .base import *
 secrets = json.loads(open(SECRETS_DEV, 'rt').read())
 
 DEBUG = True
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'localhost',
+    '127.0.0.1',
+    '.elasticbeanstalk.com',
+]
 WSGI_APPLICATION = 'config.wsgi.dev.application'
 INSTALLED_APPS += [
     'django_extensions',
+    'storages',
 ]
 STATICFILES_STORAGE = 'config.storage.StaticFilesStorage'
-DEFAULT_FILE_STORAGE = 'config.storage.DefaultlFileStorage'
+DEFAULT_FILE_STORAGE = 'config.storage.DefaultFileStorage'
 
 set_config(secrets, module_name=__name__, start=True)
