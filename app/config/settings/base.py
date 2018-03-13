@@ -97,7 +97,11 @@ set_config(secrets, module_name=__name__, start=True)
 
 
 # Static
+
+STATIC_ROOT = os.path.join(ROOT_DIR, '.static')
+MEDIA_ROOT = os.path.join(ROOT_DIR, '.media')
 STATIC_URL = '/static/'
+MEDIA_URL = '/media/'
 
 
 STATIC_DIR = os.path.join(BASE_DIR, 'static')
