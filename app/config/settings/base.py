@@ -123,6 +123,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'members',
+    'utils',
 
     # Sentry
     'raven.contrib.django.raven_compat',
