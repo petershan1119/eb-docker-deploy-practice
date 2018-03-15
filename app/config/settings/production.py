@@ -14,5 +14,5 @@ WSGI_APPLICATION = 'config.wsgi.production.application'
 INSTALLED_APPS += [
     'storages',
 ]
-STATICFILES_STORAGE = 'config.storage.StaticFilesStorage'
+# STATICFILES_STORAGE = 'config.storage.StaticFilesStorage'
 DEFAULT_FILE_STORAGE = 'config.storage.DefaultFileStorage'
